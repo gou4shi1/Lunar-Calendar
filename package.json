@@ -1,0 +1,44 @@
+{
+  "name": "Lunar-Calendar",
+  "description": "A lunar calendar",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gou4shi1/Lunar-Calendar.git"
+  },
+  "dependencies": {
+    "electron": "*",
+    "electron-debug": "*",
+    "menubar": "*",
+    "react": "*",
+    "react-dom": "*",
+    "cpr": "*",
+    "del": "*",
+    "event-stream": "*",
+    "gulp": "*",
+    "gulp-bower": "*",
+    "gulp-browserify": "*",
+    "gulp-concat": "*",
+    "gulp-concat-css": "*",
+    "gulp-css-url-adjuster": "*",
+    "gulp-filter": "*",
+    "gulp-jasmine": "*",
+    "gulp-minify-css": "*",
+    "gulp-plumber": "*",
+    "gulp-react": "*",
+    "gulp-rename": "*",
+    "gulp-sass ": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*",
+    "jasmine-reporters": "*",
+    "main-bower-files": "*",
+    "reactify": "*"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "gulp",
+    "electron": "electron .",
+    "electron-debug": "electron . --with-dev-tools"
+  }
+}
