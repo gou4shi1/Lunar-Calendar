@@ -13,9 +13,13 @@
     "menubar": "*",
     "react": "*",
     "react-dom": "*",
-    "cpr": "*",
-    "del": "*",
-    "event-stream": "*",
+    "react-transitive-number": "*",
+    "flux": "*",
+    "lunar-calendar-zh": "*",
+    "events": "*",
+    "object-assign": "*",
+    "keymirror": "*",
+    "lodash": "*",
     "gulp": "*",
     "gulp-bower": "*",
     "gulp-browserify": "*",
@@ -33,7 +37,9 @@
     "gulp-watch": "*",
     "jasmine-reporters": "*",
     "main-bower-files": "*",
-    "reactify": "*"
+    "reactify": "*",
+    "del": "*",
+    "event-stream": "*"
   },
   "main": "main.js",
   "scripts": {

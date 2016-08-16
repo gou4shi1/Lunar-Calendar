@@ -2,20 +2,10 @@
  * Created by gou4shi1 on 16-8-14.
  */
 
-React = require("react");
-ReactDOM = require("react-dom");
-
-var Hello = React.createClass({
-    render: function () {
-        return (
-            <div>
-                Hello,World!
-            </div>
-        );
-    }
-});
+var ReactDOM = require("react-dom");
+var MainPanel = require("components/main-panel");
 
 ReactDOM.render(
-    <Hello/>,
+    <MainPanel/>,
     document.body
 );
