@@ -3,15 +3,15 @@
  */
 
 var process = require("process");
+var menubar = require("menubar");
+var ipc = require("electron").ipcMain;
+
 var isDebug = process.argv.some(function (arg) {
     return arg === "--with-dev-tools";
 });
 if (isDebug) {
     require('electron-debug')();
 }
-
-var menubar = require("menubar");
-var ipc = require("electron").ipcMain;
 
 var mb = menubar({
     preloadWindow: true,

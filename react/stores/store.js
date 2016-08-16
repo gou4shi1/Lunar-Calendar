@@ -37,7 +37,7 @@ var LC_Store = Assign({}, EventEmitter.prototype, {
     },
 
     refresh: function () {
-        this.activeDay = false;
+        this.activeDay = this.getToday();
         this.emitChangeDay();
     },
 
@@ -48,10 +48,6 @@ var LC_Store = Assign({}, EventEmitter.prototype, {
     addChangeDayListener: function (callback) {
         this.on(typeConstant.CHANGE_DAY, callback);
     },
-
-    removeChangeDayListener: function (callback) {
-        this.removeListener(typeConstant.CHANGE_DAY, callback);
-    }
 });
 
 function handleDate(year, month, day) {
