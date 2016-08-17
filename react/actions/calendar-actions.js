@@ -4,48 +4,47 @@
 
 var Dispatcher = require("../dispatchers/dispatcher");
 var typeConstant = require("../constants/action-type-constants");
-var ipc = require("electron").ipcRenderer;
+var ipc =  electronRequire("electron").ipcRenderer;
 
 var LC_Action = {
-
     changeDay: function (activeDay) {
         Dispatcher.dispatch({
             actionType: typeConstant.CHANGE_DAY,
             activeDay: activeDay
-        })
+        });
     },
 
     addMonth: function () {
         Dispatcher.dispatch({
             actionType: typeConstant.ADD_MONTH
-        })
+        });
     },
 
     minusMonth: function () {
         Dispatcher.dispatch({
             actionType: typeConstant.MINUS_MONTH
-        })
+        });
     },
 
     addYear: function () {
         Dispatcher.dispatch({
             actionType: typeConstant.ADD_YEAR
-        })
+        });
     },
 
     minusYear: function () {
         Dispatcher.dispatch({
             actionType: typeConstant.MINUS_YEAR
-        })
+        });
     },
 
-    backToToday: function () {
+    refresh: function () {
         Dispatcher.dispatch({
-            actionType: typeConstant.BACK_TO_TODAY
-        })
+            actionType: typeConstant.REFRESH
+        });
     },
 
-    quitApp:  function () {
+    quitApp: function () {
         ipc.send("app-quit");
     }
 };

@@ -3,13 +3,13 @@
  */
 
 var React = require("react");
-var DatePanel = require("date-panel");
-var LunarPanel = require("lunar-panel");
+var DatePanel = require("./date-panel");
+var LunarPanel = require("./lunar-panel");
 var Store = require("../stores/store");
-var ipc = require("electron").ipcRenderer;
+var Action = require("../actions/calendar-actions");
+var ipc =  electronRequire("electron").ipcRenderer;
 
 var MainPanel = React.createClass({
-
     getInitialState: function () {
         return {
             today: Store.getToday(),
@@ -21,7 +21,7 @@ var MainPanel = React.createClass({
     componentDidMount: function () {
         Store.addChangeDayListener(this._onChange);
         ipc.on("app-refresh", function () {
-            Store.refresh();
+            Action.refresh();
         })
     },
 
@@ -35,7 +35,7 @@ var MainPanel = React.createClass({
 
     render: function () {
         return (
-            <div sytle={{width: "800px", position: "relative", border: "2px solid #00897B", borderLeft: "none", marginBottom: "0"}} className="row">
+            <div style={{width: "800px", position: "relative", border: "2px solid #00897B", borderLeft: "none", marginBottom: "0"}} className="row">
                 <div className="col s6">
                     <LunarPanel activeDay={this.state.activeDay} />
                 </div>

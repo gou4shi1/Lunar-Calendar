@@ -10,11 +10,13 @@
   "dependencies": {
     "electron": "*",
     "electron-debug": "*",
+    "devtron": "*",
     "menubar": "*",
     "react": "*",
     "react-dom": "*",
     "react-transitive-number": "*",
     "flux": "*",
+    "classname": "*",
     "lunar-calendar-zh": "*",
     "events": "*",
     "object-assign": "*",

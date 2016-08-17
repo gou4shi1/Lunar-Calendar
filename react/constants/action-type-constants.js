@@ -10,5 +10,5 @@ module.exports = keyMirror({
     MINUS_MONTH: null,
     ADD_YEAR: null,
     MINUS_YEAR: null,
-    BACK_TO_TODAY: null
+    REFRESH: null
 });
