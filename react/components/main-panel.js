@@ -8,6 +8,8 @@ var LunarPanel = require("./lunar-panel");
 var Store = require("../stores/store");
 var Action = require("../actions/calendar-actions");
 var ipc =  electronRequire("electron").ipcRenderer;
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {GridList, GridTile} from 'material-ui/GridList';
 
 var MainPanel = React.createClass({
     getInitialState: function () {
@@ -34,20 +36,29 @@ var MainPanel = React.createClass({
     },
 
     render: function () {
+        var styles = {
+            GridList: {
+                width: 800,
+                height: 400
+            }
+        };
+
         return (
-            <div style={{width: "800px", position: "relative", border: "2px solid #00897B", borderLeft: "none", marginBottom: "0"}} className="row">
-                <div className="col s6">
+            <MuiThemeProvider>
+            <GridList cols={2} cellHeight={400} style={styles.GridList}>
+                <GridTile>
                     <LunarPanel activeDay={this.state.activeDay} />
-                </div>
-                <div className="col s6">
+                </GridTile>
+                <GridTile>
                     <DatePanel
                         today={this.state.today}
                         activeDay={this.state.activeDay}
                         activeMonth={this.state.activeMonth}
                     />
-                </div>
-            </div>
-        )
+                </GridTile>
+            </GridList>
+            </MuiThemeProvider>
+        );
     }
 });
 

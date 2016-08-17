@@ -15,8 +15,8 @@ if (isDebug) {
 
 var mb = menubar({
     preloadWindow: true,
-    width: 888,
-    height: 444,
+    width: 800,
+    height: 400,
 });
 
 mb.on("ready", function () {

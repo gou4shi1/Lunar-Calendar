@@ -1,43 +1,16 @@
-/**
- * Created by gou4shi1 on 16-8-14.
- */
+/*
+  gulpfile.js
+  ===========
+  Rather than manage one giant configuration file responsible
+  for creating multiple tasks, each task has been broken out into
+  its own file in gulp/tasks. Any files in that directory get
+  automatically required below.
+  To add a new task, simply add a new task file that directory.
+  gulp/tasks/default.js specifies the default set of tasks to run
+  when you run `gulp`.
+*/
 
-var gulp = require("gulp");
-var sass = require("gulp-sass");
-var minify = require("gulp-minify-css");
-var uglify = require("gulp-uglify");
-var concat = require("gulp-concat");
-var bower = require("gulp-bower");
-var watch = require("gulp-watch");
-var del = require("del");
-var rename = require("gulp-rename");
-var plumber = require("gulp-plumber");
-var react = require("gulp-react");
-var eventstream = require("event-stream");
-var browserify = require("gulp-browserify");
-var concatcss = require("gulp-concat-css");
-var cssurladjuster = require("gulp-css-url-adjuster");
-var jasmine = require("gulp-jasmine");
-var jasreporter = require("jasmine-reporters");
-var mainbowerfiles = require("main-bower-files");
-var filter = require("gulp-filter");
+var requireDir = require('require-dir');
 
-gulp.task("default", function () {
-    gulp.start("js");
-});
-
-gulp.task("js", function () {
-    var react_stream = gulp.src("react/app.js")
-        .pipe(plumber(function (error) {
-            console.log(error.toString());
-            this.emit("end");
-        }))
-        .pipe(browserify({
-            "transform": [
-                ["reactify", {
-                    "es6": true
-                }]
-            ]
-        }))
-        .pipe(gulp.dest("build"));
-});
+// Require all tasks in gulp/tasks, including subfolders
+requireDir('./gulp/tasks', { recurse: true });

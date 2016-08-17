@@ -3,10 +3,12 @@
  */
 
 var React = require("react");
-var ReactDOM = require("react-dom");
+var ReactDom = require("react-dom");
 var MainPanel = require("./components/main-panel");
+import InjectTapEventPlugin from "react-tap-event-plugin";
 
-ReactDOM.render(
-    <MainPanel/>,
-    document.body
-);
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+InjectTapEventPlugin();
+
+ReactDom.render(<MainPanel/>, document.getElementById("app"));

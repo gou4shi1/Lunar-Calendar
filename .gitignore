@@ -10,7 +10,6 @@ pids
 
 # Dependency directories
 node_modules
-jspm_packages
 
 # Optional npm cache directory
 .npm
@@ -18,8 +17,8 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
-#WebStorm
+# WebStorm
 .idea
 
-#gulp
+# gulp
 build
