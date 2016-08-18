@@ -16,7 +16,7 @@ var LC_Store = Assign({}, EventEmitter.prototype, {
 
     getToday: function () {
         var date = new Date();
-        var monthData = LC.calendar(date.getFullYear(), date.getMonth(), false).monthData;
+        var monthData = LC.calendar(date.getFullYear(), date.getMonth() + 1, false).monthData;
         return _.find(monthData, { "day": date.getDate() });
     },
 

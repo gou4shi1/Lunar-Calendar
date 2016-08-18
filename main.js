@@ -3,6 +3,7 @@
  */
 
 var process = require("process");
+var path = require("path");
 var menubar = require("menubar");
 var ipc = require("electron").ipcMain;
 
@@ -14,9 +15,11 @@ if (isDebug) {
 }
 
 var mb = menubar({
+    dir: __dirname,
+    icon: __dirname + "/icon.png",
     preloadWindow: true,
     width: 800,
-    height: 400,
+    height: 400
 });
 
 mb.on("ready", function () {
