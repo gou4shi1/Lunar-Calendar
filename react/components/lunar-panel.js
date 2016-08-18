@@ -47,7 +47,7 @@ var LunarPanel = React.createClass({
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiMonth + "月"}</Transitive>
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiDay + "日"}</Transitive>
                 </GridTile>
-                <GridTile cols={3} rows={3} className="monthPanel" >
+                <GridTile cols={3} rows={3} className="yearPanel" >
                     <br/><Transitive className="monthDetail">{activeDay.year}</Transitive><br/>
                     <Transitive className="monthDetail">{activeDay.month + "月"}</Transitive>
                 </GridTile>
@@ -59,13 +59,13 @@ var LunarPanel = React.createClass({
                 <GridTile cols={3} rows={3} className="festivalPanel">
                     <br/>{festivalElements}
                 </GridTile>
-                <GridTile cols={10} rows={1}>
-                        <Transitive>{activeDay.lunarMonthName}</Transitive>
-                        <Transitive>{activeDay.lunarDayName}</Transitive>
+                <GridTile cols={10} rows={1} className="monthPanel">
+                    <Transitive>{activeDay.lunarMonthName + "  "}</Transitive>
+                    <Transitive>{activeDay.lunarDayName}</Transitive>
                 </GridTile>
-                <GridTile cols={10} rows={3}>
-                        <p title={hl_y} className="hl-detail">宜：{hl_y}</p>
-                        <p title={hl_j} className="hl-detail">忌：{hl_j}</p>
+                <GridTile cols={10} rows={3} className="hlPanel">
+                        <p className="hlDetail">宜：{hl_y}</p>
+                        <p className="hlDetail">忌：{hl_j}</p>
                 </GridTile>
             </GridList>
         )

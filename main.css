@@ -10,12 +10,12 @@
     text-align: center; }
     .mainPanel .lunarPanel .ganZhiPanel .ganZhiDetail {
       margin: 0 10px; }
-  .mainPanel .lunarPanel .monthPanel {
+  .mainPanel .lunarPanel .yearPanel {
     background: #EAF786;
     color: #80CBC4;
     font-size: 24px;
     text-align: center; }
-    .mainPanel .lunarPanel .monthPanel .monthDatail {
+    .mainPanel .lunarPanel .yearPanel .monthDatail {
       display: block; }
   .mainPanel .lunarPanel .dayPanel {
     background: #EAF786;
@@ -26,5 +26,11 @@
     color: #26A69A;
     text-align: center;
     font-size: 16px; }
+  .mainPanel .lunarPanel .monthPanel {
+    background: #FFB5A1;
+    font-size: 26px;
+    text-align: center; }
+  .mainPanel .lunarPanel .hlPanel {
+    background: #FFB5A1; }
 
 /*# sourceMappingURL=main.css.map */

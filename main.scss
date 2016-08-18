@@ -15,7 +15,7 @@
       }
     }
 
-    .monthPanel {
+    .yearPanel {
       background: #EAF786;
       color: #80CBC4;
       font-size: 24px;
@@ -34,6 +34,16 @@
       color: #26A69A;
       text-align: center;
       font-size: 16px;
+    }
+    .monthPanel {
+      background: #FFB5A1;
+      font-size: 26px;
+      text-align: center;
+    }
+    .hlPanel {
+      background: #FFB5A1;
+      .hlDetail {
+      }
     }
   }
 }
