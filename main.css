@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Noto Sans";
+    src: url("./fonts/NotoSans-Regular.ttf");
+}
+@font-face {
+    font-family: "Noto Sans CJK";
+    src: url("./fonts/NotoSansCJKtc-Regular.otf");
+}
+
+html {
+    font-family: "Noto Sans", "Noto Sans CJK", sans-serif;
+}
