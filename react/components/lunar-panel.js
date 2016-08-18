@@ -6,26 +6,34 @@ var React = require("react");
 var Transitive = require("react-transitive-number");
 var Store = require("../stores/store");
 
+import {GridList, GridTile} from 'material-ui/GridList';
+import Paper from 'material-ui/Paper';
+
 var LunarPanel = React.createClass({
     render: function () {
         var activeDay = this.props.activeDay;
         var festivalElements = [];
 
         if (activeDay.term) {
+            festivalElements.push(<br/>);
             festivalElements.push(
-                <span className="festival-detail term">{activeDay.term}</span>
+                <Transitive className="festivalDetail">{activeDay.term}</Transitive>
             );
         }
         if (activeDay.lunarFestival) {
+            festivalElements.push(<br/>);
             festivalElements.push(
-                <span className="festival-detail lunar">{activeDay.lunar}</span>
+                <Transitive className="festivalDetail">{activeDay.lunar}</Transitive>
             );
         }
         if (activeDay.solarFestival) {
             var festivals = activeDay.solarFestival.split(" ");
-            festivalElements.push(
-                <span className="festival-detail">{festivals[0]}</span>
-            );
+            for (var i = 0; i < festivals.length; i++) {
+                festivalElements.push(<br/>);
+                festivalElements.push(
+                    <Transitive className="festivalDetail">{festivals[i]}</Transitive>
+                );
+            }
         }
 
         var hl = Store.getHL(activeDay);
@@ -33,33 +41,33 @@ var LunarPanel = React.createClass({
         var hl_j = hl.j || "";
 
         return (
-            <div className="lunar-panel">
-                <div className="ganzhi">
-                <Transitive key="ganzhinian" className="ganzhi-detail">{activeDay.GanZhiYear + "年"}</Transitive>
-                <Transitive key="ganzhimonth" className="ganzhi-detail">{activeDay.GanZhiMonth + "月"}</Transitive>
-                <Transitive key="ganzhiri" className="ganzhi-detail">{activeDay.GanZhiDay + "日"}</Transitive>
-                </div>
-                <div className="daynumber">
-                    <div className="solar-panel">
-                        <Transitive className="solar-detail">{activeDay.year}</Transitive>
-                        <Transitive className="solar-detail">{activeDay.month}</Transitive>
-                    </div>
-                    <div className="festival-panel">
-                        {festivalElements}
-                    </div>
-                    <h1 className="center-align">
+            <GridList cols={10} cellHeight={50} padding={0} className="lunarPanel">
+                <GridTile cols={10} rows={1} className="ganZhiPanel">
+                <Transitive className="ganZhiDetail">{activeDay.GanZhiYear + "年"}</Transitive>
+                <Transitive className="ganZhiDetail">{activeDay.GanZhiMonth + "月"}</Transitive>
+                <Transitive className="ganZhiDetail">{activeDay.GanZhiDay + "日"}</Transitive>
+                </GridTile>
+                <GridTile cols={3} rows={3} className="monthPanel" >
+                    <br/><Transitive className="monthDetail">{activeDay.year}</Transitive><br/>
+                    <Transitive className="monthDetail">{activeDay.month + "月"}</Transitive>
+                </GridTile>
+                <GridTile cols={4} rows={3} className="dayPanel">
+                    <Paper zDepth={2} style={{background: "#EAF786"}}>
                         <Transitive>{activeDay.day}</Transitive>
-                    </h1>
-                    <p className="lunar-detail">
+                    </Paper>
+                </GridTile>
+                <GridTile cols={3} rows={3} className="festivalPanel">
+                    <br/>{festivalElements}
+                </GridTile>
+                <GridTile cols={10} rows={1}>
                         <Transitive>{activeDay.lunarMonthName}</Transitive>
                         <Transitive>{activeDay.lunarDayName}</Transitive>
-                    </p>
-                    <div className="hl-panel">
+                </GridTile>
+                <GridTile cols={10} rows={3}>
                         <p title={hl_y} className="hl-detail">宜：{hl_y}</p>
                         <p title={hl_j} className="hl-detail">忌：{hl_j}</p>
-                    </div>
-                </div>
-            </div>
+                </GridTile>
+            </GridList>
         )
     }
 });

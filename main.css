@@ -1,12 +1,30 @@
-@font-face {
-    font-family: "Noto Sans";
-    src: url("./fonts/NotoSans-Regular.ttf");
-}
-@font-face {
-    font-family: "Noto Sans CJK";
-    src: url("./fonts/NotoSansCJKtc-Regular.otf");
-}
+.mainPanel {
+  position: relative;
+  border: 2px solid #00897B;
+  border-left: none;
+  margin-bottom: 0; }
+  .mainPanel .lunarPanel .ganZhiPanel {
+    line-height: 50px;
+    background: #5FD9CD;
+    color: #FFF;
+    text-align: center; }
+    .mainPanel .lunarPanel .ganZhiPanel .ganZhiDetail {
+      margin: 0 10px; }
+  .mainPanel .lunarPanel .monthPanel {
+    background: #EAF786;
+    color: #80CBC4;
+    font-size: 24px;
+    text-align: center; }
+    .mainPanel .lunarPanel .monthPanel .monthDatail {
+      display: block; }
+  .mainPanel .lunarPanel .dayPanel {
+    background: #EAF786;
+    font-size: 100px;
+    text-align: center; }
+  .mainPanel .lunarPanel .festivalPanel {
+    background: #EAF786;
+    color: #26A69A;
+    text-align: center;
+    font-size: 16px; }
 
-html {
-    font-family: "Noto Sans", "Noto Sans CJK", sans-serif;
-}
+/*# sourceMappingURL=main.css.map */

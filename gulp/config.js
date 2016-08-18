@@ -4,7 +4,7 @@ var dest = './build',
 
 module.exports = {
   electronSync: {
-    src: dest + '/**'
+    src: [dest + '/app.js','./main.css']
   },
   browserify: {
     // Enable source maps

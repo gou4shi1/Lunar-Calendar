@@ -1,0 +1,39 @@
+.mainPanel {
+  position: relative;
+  border: 2px solid #00897B;
+  border-left: none;
+  margin-bottom: 0;
+
+  .lunarPanel {
+    .ganZhiPanel {
+      line-height: 50px;
+      background: #5FD9CD;
+      color: #FFF;
+      text-align: center;
+      .ganZhiDetail {
+        margin: 0 10px;
+      }
+    }
+
+    .monthPanel {
+      background: #EAF786;
+      color: #80CBC4;
+      font-size: 24px;
+      text-align: center;
+      .monthDatail {
+        display: block;
+      }
+    }
+    .dayPanel {
+      background: #EAF786;
+      font-size: 100px;
+      text-align: center;
+    }
+    .festivalPanel {
+      background: #EAF786;
+      color: #26A69A;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+}
