@@ -5,37 +5,38 @@
 var React = require("react");
 var Action = require("../actions/calendar-actions");
 
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
+import {IconButton, IconMenu, MenuItem, TextField} from 'material-ui'
+import Left from 'material-ui/svg-icons/navigation/chevron-left'
+import Right from 'material-ui/svg-icons/navigation/chevron-right'
+import Refresh from 'material-ui/svg-icons/navigation/refresh'
+import Quit from 'material-ui/svg-icons/action/power-settings-new'
+import More from 'material-ui/svg-icons/navigation/more-vert';
+
 var DateController = React.createClass({
     render: function () {
         var activeDay = this.props.activeDay;
 
         return (
-            <div>
-                <div className="date-controller">
-                    <a href="javascript:void(0);" onClick={this._minusYear}>
-                        <i className="fa fa-2x fa-angle-double-left fa-fw" />
-                    </a>
-                    <a href="javascript:void(0);" onClick={this._minusMonth}>
-                        <i className="fa fa-2x fa-angle-left fa-fw" />
-                    </a>
-                    <span className="year-block">{activeDay.year}</span>
-                    <span className="month-block">{activeDay.month}月</span>
-                    <a href="javascript:void(0);" onClick={this._addMonth}>
-                        <i className="fa fa-2x fa-angle-right fa-fw" />
-                    </a>
-                    <a href="javascript:void(0);" onClick={this._addYear}>
-                        <i className="fa fa-2x fa-angle-double-right fa-fw" />
-                    </a>
-                    <a href="javascript:void(0);" className="right grey-text" style={{marginRight: "15px"}} onClick={this._quitApp}>
-                        <i className="fa fa-2x fa-power-off" />
-                    </a>
-                    <a href="javascript:void(0);" className="right" style={{marginRight: "15px"}} onClick={this._refresh}>
-                        <i className="fa fa-2x fa-refresh" />
-                    </a>
-                    <div className="clerafix"></div>
-                </div>
-                <div className="divider"></div>
-            </div>
+            <Toolbar className="dateController">
+                <ToolbarGroup firstChild={true}>
+                    <IconButton onTouchTap={this._minusYear}><Left/></IconButton>
+                    <TextField hintText={activeDay.year} style={{width: 40}}/>
+                    <IconButton onTouchTap={this._addYear}><Right/></IconButton>
+                    <IconButton onTouchTap={this._minusMonth}><Left/></IconButton>
+                    <TextField hintText={activeDay.month} style={{width: 17}}/>
+                    <IconButton onTouchTap={this._addMonth}><Right/></IconButton>
+                    <IconButton onTouchTap={this._refresh}><Refresh/></IconButton>
+                    <IconButton onTouchTap={this._quitApp}><Quit/></IconButton>
+                    <IconMenu
+                        iconButtonElement={<IconButton><More/></IconButton>}
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                    >
+                        <MenuItem primaryText="Help" />
+                    </IconMenu>
+                </ToolbarGroup>
+            </Toolbar>
         );
     },
 
