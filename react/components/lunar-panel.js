@@ -17,13 +17,13 @@ var LunarPanel = React.createClass({
         if (activeDay.term) {
             festivalElements.push(<br/>);
             festivalElements.push(
-                <Transitive className="festivalDetail">{activeDay.term}</Transitive>
+                <Transitive>{activeDay.term}</Transitive>
             );
         }
         if (activeDay.lunarFestival) {
             festivalElements.push(<br/>);
             festivalElements.push(
-                <Transitive className="festivalDetail">{activeDay.lunar}</Transitive>
+                <Transitive>{activeDay.lunar}</Transitive>
             );
         }
         if (activeDay.solarFestival) {
@@ -31,7 +31,7 @@ var LunarPanel = React.createClass({
             for (var i = 0; i < festivals.length; i++) {
                 festivalElements.push(<br/>);
                 festivalElements.push(
-                    <Transitive className="festivalDetail">{festivals[i]}</Transitive>
+                    <Transitive>{festivals[i]}</Transitive>
                 );
             }
         }
@@ -41,31 +41,39 @@ var LunarPanel = React.createClass({
         var hl_j = hl.j || "";
 
         return (
-            <GridList cols={10} cellHeight={50} padding={0} className="lunarPanel">
-                <GridTile cols={10} rows={1} className="ganZhiPanel">
+            <GridList cols={10} cellHeight={25} padding={0} className="lunarPanel">
+                <GridTile cols={10} rows={2} className="ganZhiPanel">
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiYear + "年"}</Transitive>
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiMonth + "月"}</Transitive>
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiDay + "日"}</Transitive>
                 </GridTile>
-                <GridTile cols={3} rows={3} className="yearPanel" >
-                    <br/><Transitive className="monthDetail">{activeDay.year}</Transitive><br/>
-                    <Transitive className="monthDetail">{activeDay.month + "月"}</Transitive>
+                <GridTile cols={10} rows={1} className="dayPanel">
                 </GridTile>
-                <GridTile cols={4} rows={3} className="dayPanel">
+                <GridTile cols={3} rows={6} className="yearPanel">
+                    <br/><Transitive className="yearDetail">{activeDay.year}</Transitive><br/>
+                    <Transitive className="yearDetail">{activeDay.month + "月"}</Transitive>
+                </GridTile>
+                <GridTile cols={4} rows={6} className="dayPanel">
                     <Paper zDepth={2} style={{background: "#EAF786"}}>
                         <Transitive>{activeDay.day}</Transitive>
                     </Paper>
                 </GridTile>
-                <GridTile cols={3} rows={3} className="festivalPanel">
+                <GridTile cols={3} rows={6} className="festivalPanel">
                     <br/>{festivalElements}
                 </GridTile>
+                <GridTile cols={10} rows={1} className="dayPanel">
+                </GridTile>
                 <GridTile cols={10} rows={1} className="monthPanel">
-                    <Transitive>{activeDay.lunarMonthName + "  "}</Transitive>
-                    <Transitive>{activeDay.lunarDayName}</Transitive>
+                </GridTile>
+                <GridTile cols={10} rows={2} className="monthPanel">
+                    <Paper zDepth={1} style={{background: "#FFB5A1", color: "#ff3d00"}}>
+                        <Transitive>{activeDay.lunarMonthName + "  "}</Transitive>
+                        <Transitive>{activeDay.lunarDayName}</Transitive>
+                    </Paper>
                 </GridTile>
                 <GridTile cols={10} rows={3} className="hlPanel">
-                        <p className="hlDetail">宜：{hl_y}</p>
-                        <p className="hlDetail">忌：{hl_j}</p>
+                    宜：{hl_y}<br/>
+                    忌：{hl_j}
                 </GridTile>
             </GridList>
         )
