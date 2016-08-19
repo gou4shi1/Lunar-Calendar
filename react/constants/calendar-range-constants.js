@@ -3,6 +3,8 @@
  */
 
 module.exports = {
+    MIN_YEAR: 2008,
     MAX_YEAR: 2020,
-    MIN_YEAR: 2008
+    MIN_MONTH: 1,
+    MAX_MONTH: 12
 };
