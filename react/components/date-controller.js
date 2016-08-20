@@ -13,13 +13,35 @@ import Right from 'material-ui/svg-icons/navigation/chevron-right'
 import Refresh from 'material-ui/svg-icons/navigation/refresh'
 import Quit from 'material-ui/svg-icons/action/power-settings-new'
 import More from 'material-ui/svg-icons/navigation/more-vert';
+import Note from 'material-ui/svg-icons/notification/event-note'
 
 var DateController = React.createClass({
     getInitialState: function () {
         return {
+            jishiDialog: false,
             aboutDialog: false,
-            zhuceDialog: false
+            zhuceDialog: false,
+            jishi: this.props.activeDay.jishi
         };
+    },
+
+    _changeJishi: function (event) {
+        this.setState({
+            jishi: event.target.value
+        });
+    },
+
+    jishiDialogOpen: function () {
+        this.setState({
+            jishiDialog: true,
+            jishi: this.props.activeDay.jishi
+        });
+    },
+
+    jishiDialogClose: function () {
+        this.setState({
+            jishiDialog: false
+        });
     },
 
     aboutDialogOpen: function () {
@@ -49,6 +71,18 @@ var DateController = React.createClass({
     render: function () {
         var activeDay = this.props.activeDay;
 
+        var jishiDialogAction = [
+            <FlatButton
+                label="保存"
+                primary={true}
+                onTouchTap={this._saveJishi}
+            />,
+            <FlatButton
+                label="關閉"
+                primary={true}
+                onTouchTap={this.jishiDialogClose}
+            />
+        ];
         var aboutDialogAction = <FlatButton
             label="關閉"
             primary={true}
@@ -88,7 +122,7 @@ var DateController = React.createClass({
                     <TextField
                         onChange={this._changeMonth}
                         hintText={activeDay.month}
-                        style={{width: 17}}
+                        style={{width: 18}}
                     />
                     <IconButton onTouchTap={this._addMonth} tooltip="下一月">
                         <Right color="#FFC107" hoverColor="#FF6F00"/>
@@ -96,11 +130,16 @@ var DateController = React.createClass({
                     <IconButton onTouchTap={this._refresh} tooltip="返回今天">
                         <Refresh color="#FFC107" hoverColor="#FF6F00"/>
                     </IconButton>
+                    <IconButton onTouchTap={this.jishiDialogOpen} tooltip="记事本">
+                        <Note color="#FFC107" hoverColor="#FF6F00"/>
+                    </IconButton>
                     <IconButton onTouchTap={this._quitApp} tooltip="退出日历">
                         <Quit color="#FFC107" hoverColor="#FF6F00"/>
                     </IconButton>
+                </ToolbarGroup>
+                <ToolbarGroup lastChild={true}>
                     <IconMenu
-                        iconButtonElement={<IconButton><More/></IconButton>}
+                        iconButtonElement={<IconButton><More color="#FFC107" hoverColor="#FF6F00"/></IconButton>}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                         targetOrigin={{horizontal: 'right', vertical: 'top'}}
                     >
@@ -121,12 +160,27 @@ var DateController = React.createClass({
                         open={this.state.zhuceDialog}
                         onRequestClose={this.zhuceDialogClose}
                         actions={zhuceDialogAction}
-                        title="打開新世界的大門"
+                        title="新世界的大門"
                     >
                         <p>只需要向我的支付寶賬號充值100軟妹幣！</p>
                         <p>即可成爲黃金VIP會員！</p>
                         <p>想要知道我的支付寶賬號？</p>
                         <p>去打開新世界的大門吧！</p>
+                    </Dialog>
+                    <Dialog
+                        open={this.state.jishiDialog}
+                        onRequestClose={this.jishiDialogClose}
+                        actions={jishiDialogAction}
+                        title={activeDay.year + '.' + activeDay.month + '.' + activeDay.day}
+                    >
+                        <textarea
+                            cols={66}
+                            rows={8}
+                            type="text"
+                            value={this.state.jishi}
+                            onChange={this._changeJishi}
+                            placeholder="请在此输入。。。"
+                        />
                     </Dialog>
                 </ToolbarGroup>
             </Toolbar>
@@ -169,6 +223,10 @@ var DateController = React.createClass({
 
     _refresh: function(){
         Action.refresh()
+    },
+
+    _saveJishi: function () {
+        Action.changeJishi(this.props.activeDay, this.state.jishi.substr(0,140));
     },
 
     _quitApp: function(){

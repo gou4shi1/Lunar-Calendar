@@ -4,7 +4,6 @@
 
 var React = require("react");
 var Transitive = require("react-transitive-number");
-var Store = require("../stores/store");
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
@@ -13,35 +12,37 @@ var LunarPanel = React.createClass({
     render: function () {
         var activeDay = this.props.activeDay;
         var festivalElements = [];
+        var i = 0;
 
         if (activeDay.term) {
-            festivalElements.push(<br/>);
+            festivalElements.push(<br key={"festival" + (i++)}/>);
             festivalElements.push(
-                <Transitive>{activeDay.term}</Transitive>
+                <Transitive key={"festival" + (i++)}>{activeDay.term}</Transitive>
             );
         }
         if (activeDay.lunarFestival) {
-            festivalElements.push(<br/>);
+            festivalElements.push(<br key={"festival" + (i++)}/>);
             festivalElements.push(
-                <Transitive>{activeDay.lunar}</Transitive>
+                <Transitive key={"festival" + (i++)}>{activeDay.lunarFestival}</Transitive>
             );
         }
         if (activeDay.solarFestival) {
-            var festivals = activeDay.solarFestival.split(" ");
-            for (var i = 0; i < festivals.length; i++) {
-                festivalElements.push(<br/>);
+            var festivals = activeDay.solarFestival.replace(/國際|世界|\(|\)/g, " ").split(" ");
+            festivals.forEach(function (festival, index) {
+                if (festival.length > 5)
+                    festivals[index] = festival.slice(0,5) + "日";
+            });
+            for (var j = 0; j < festivals.length; j++) {
+                if (festivals[j])
+                    festivalElements.push(<br key={"festival" + (i++)}/>);
                 festivalElements.push(
-                    <Transitive>{festivals[i]}</Transitive>
+                    <Transitive key={"festival" + (i++)}>{festivals[j]}</Transitive>
                 );
             }
         }
 
-        var hl = Store.getHL(activeDay);
-        var hl_y = hl.y || "";
-        var hl_j = hl.j || "";
-
         return (
-            <GridList cols={10} cellHeight={25} padding={0} className="lunarPanel">
+            <GridList cols={10} cellHeight={31} padding={0} className="lunarPanel">
                 <GridTile cols={10} rows={2} className="ganZhiPanel">
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiYear + "年"}</Transitive>
                 <Transitive className="ganZhiDetail">{activeDay.GanZhiMonth + "月"}</Transitive>
@@ -61,8 +62,6 @@ var LunarPanel = React.createClass({
                 <GridTile cols={3} rows={6} className="festivalPanel">
                     <br/>{festivalElements}
                 </GridTile>
-                <GridTile cols={10} rows={1} className="dayPanel">
-                </GridTile>
                 <GridTile cols={10} rows={1} className="monthPanel">
                 </GridTile>
                 <GridTile cols={10} rows={2} className="monthPanel">
@@ -71,9 +70,9 @@ var LunarPanel = React.createClass({
                         <Transitive>{activeDay.lunarDayName}</Transitive>
                     </Paper>
                 </GridTile>
-                <GridTile cols={10} rows={3} className="hlPanel">
-                    宜：{hl_y}<br/>
-                    忌：{hl_j}
+                <GridTile cols={10} rows={2} className="hlPanel">
+                    宜：{activeDay.hl_y}<br/>
+                    忌：{activeDay.hl_j}
                 </GridTile>
             </GridList>
         )

@@ -44,6 +44,14 @@ var LC_Action = {
         });
     },
 
+    changeJishi: function (activeDay, jishi) {
+        Dispatcher.dispatch({
+            actionType: typeConstant.CHANGE_JISHI,
+            jishi: jishi,
+            activeDay: activeDay
+        });
+    },
+
     quitApp: function () {
         ipc.send("app-quit");
     }

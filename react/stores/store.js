@@ -2,22 +2,19 @@
  * Created by gou4shi1 on 16-8-16.
  */
 
+var lunarCalendar = require("./lunar-calendar");
 var Dispatcher = require("../dispatchers/dispatcher");
 var typeConstant = require("../constants/action-type-constants");
 var rangeConstant = require("../constants/calendar-range-constants");
-var LC = require("lunar-calendar-zh");
-var HL = require("./huangli/huangli");
 var EventEmitter = require("events").EventEmitter;
 var Assign = require("object-assign");
-var _ = require("lodash");
 
 var LC_Store = Assign({}, EventEmitter.prototype, {
     activeDay: false,
 
     getToday: function () {
         var date = new Date();
-        var monthData = LC.calendar(date.getFullYear(), date.getMonth() + 1, false).monthData;
-        return _.find(monthData, { "day": date.getDate() });
+        return lunarCalendar.getLunarByDay(date.getFullYear(), date.getMonth() + 1, date.getDate());
     },
 
     getActiveDay: function () {
@@ -25,14 +22,8 @@ var LC_Store = Assign({}, EventEmitter.prototype, {
     },
 
     getActiveMonth: function () {
-        var Day = this.getActiveDay();
-        return LC.calendar(Day.year, Day.month, true).monthData;
-    },
-
-    getHL: function (date) {
-        var month = (date.month < 10 ? "0" : "") + date.month;
-        var day = (date.day < 10 ? "0" : "") + date.day;
-        return HL["hl"+date.year]["d"+month+day];
+        var activeDay = this.getActiveDay();
+        return lunarCalendar.getLunarByMonth(activeDay.year, activeDay.month);
     },
 
     changeDay: function(year, month, day) {
@@ -46,10 +37,15 @@ var LC_Store = Assign({}, EventEmitter.prototype, {
         }
         if (year > rangeConstant.MAX_YEAR || year < rangeConstant.MIN_YEAR)
             return false;
-        var monthData = LC.calendar(year, month, false).monthData;
-        this.activeDay = _.find(monthData, { "day": day} );
+        this.activeDay = lunarCalendar.getLunarByDay(year, month, day);
         this.emit(typeConstant.CHANGE_DAY);
         return true;
+    },
+
+    changeJishi: function (activeDay, jishi) {
+        lunarCalendar.changeJishi(activeDay.year, activeDay.month, activeDay.day, jishi);
+        this.activeDay = lunarCalendar.getLunarByDay(activeDay.year,activeDay.month,activeDay.day);
+        this.emit(typeConstant.CHANGE_DAY);
     },
 
     addChangeDayListener: function (callback) {
@@ -80,6 +76,9 @@ Dispatcher.register(function (action) {
         case typeConstant.REFRESH:
             activeDay = LC_Store.getToday();
             LC_Store.changeDay(activeDay.year, activeDay.month, activeDay.day);
+            break;
+        case typeConstant.CHANGE_JISHI:
+            LC_Store.changeJishi(action.activeDay, action.jishi);
             break;
         default:
             break;

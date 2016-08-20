@@ -39,11 +39,11 @@ var MainPanel = React.createClass({
     render: function () {
         return (
             <MuiThemeProvider>
-            <GridList cols={2} cellHeight={400} className="mainPanel">
-                <GridTile>
+            <GridList cols={10} cellHeight={434} className="mainPanel">
+                <GridTile cols={4}>
                     <LunarPanel activeDay={this.state.activeDay} />
                 </GridTile>
-                <GridTile>
+                <GridTile cols={6}>
                     <DatePanel
                         today={this.state.today}
                         activeDay={this.state.activeDay}

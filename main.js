@@ -19,7 +19,7 @@ var mb = menubar({
     icon: __dirname + "/icon.png",
     preloadWindow: true,
     width: 800,
-    height: 420,
+    height: 464,
 });
 
 mb.on("ready", function () {
