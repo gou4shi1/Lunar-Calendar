@@ -1,31 +1,33 @@
 {
   "name": "Lunar-Calendar",
   "description": "A lunar calendar",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/gou4shi1/Lunar-Calendar.git"
   },
   "dependencies": {
-    "electron": "*",
-    "menubar": "*",
+    "electron": "^1.3.3",
+    "menubar": "^5.1.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "flux": "*",
-    "lunar-calendar-zh": "*",
-    "events": "*",
-    "object-assign": "*",
-    "keymirror": "*",
-    "lodash": "*",
-    "react-transitive-number": "*",
+    "flux": "^2.1.1",
+    "lunar-calendar-zh": "^0.1.4",
+    "events": "^1.1.1",
+    "object-assign": "^4.1.0",
+    "keymirror": "^0.1.1",
+    "lodash": "^4.15.0",
+    "react-transitive-number": "^3.0.0",
     "material-ui": "^0.15.0",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "configstore": "^2.0.0"
   },
   "devDependencies": {
-    "electron-debug": "*",
-    "electron-connect": "*",
-    "devtron": "*",
+    "electron-debug": "^1.0.1",
+    "electron-connect": "^0.4.4",
+    "electron-packager": "*",
+    "devtron": "^1.3.0",
     "babel-core": "^6.3.26",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
@@ -44,6 +46,12 @@
   "scripts": {
     "start": "gulp",
     "electron": "electron .",
-    "electron-debug": "electron . --with-dev-tools"
+    "electron-debug": "electron . --with-dev-tools",
+    "build-linux-64": "electron-packager . Lunar-Calendar --platform=linux --arch=x64 --prune",
+    "build-linux-32": "electron-packager . Lunar-Calendar --platform=linux --arch=ia32 --prune",
+    "build-darwin-64": "electron-packager . Lunar-Calendar --platform=darwin --arch=x64 --prune --icon=icon.icns",
+    "build-darwin-32": "electron-packager . Lunar-Calendar --platform=darwin --arch=ia32 --prune --icon=icon.icns",
+    "build-win-64": "electron-packager . Lunar-Calendar --platform=win32 --arch=x64 --prune --icon=icon.ico",
+    "build-win-32": "electron-packager . Lunar-Calendar --platform=win32 --arch=ia32 --prune --icon=icon.ico"
   }
 }

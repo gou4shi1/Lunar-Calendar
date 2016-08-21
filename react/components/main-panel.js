@@ -2,12 +2,13 @@
  * Created by gou4shi1 on 16-8-15.
  */
 
-var React = require("react");
-var DatePanel = require("./date-panel");
-var LunarPanel = require("./lunar-panel");
-var Store = require("../stores/store");
-var Action = require("../actions/calendar-actions");
-var ipc =  electronRequire("electron").ipcRenderer;
+var React = require('react');
+var ipc =  electronRequire('electron').ipcRenderer;
+var DatePanel = require('./date-panel');
+var LunarPanel = require('./lunar-panel');
+var CalendarStore = require('../stores/calendar-store');
+var CalendarAction = require('../actions/calendar-actions');
+var COLOR = require('../constants/calendar-color');
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {GridList, GridTile} from 'material-ui/GridList';
@@ -15,33 +16,39 @@ import {GridList, GridTile} from 'material-ui/GridList';
 var MainPanel = React.createClass({
     getInitialState: function () {
         return {
-            today: Store.getToday(),
-            activeDay: Store.getActiveDay(),
-            activeMonth: Store.getActiveMonth()
+            today: CalendarStore.getToday(),
+            activeDay: CalendarStore.getActiveDay(),
+            activeMonth: CalendarStore.getActiveMonth()
         };
     },
 
     componentDidMount: function () {
-        Store.addChangeDayListener(this._onChange);
-        ipc.on("app-refresh", function () {
-            Action.refresh();
+        CalendarStore.addChangeDayListener(this._onChange);
+        ipc.on('app-refresh', function () {
+            CalendarAction.refresh();
         })
     },
 
     _onChange: function () {
         this.setState({
-            today: Store.getToday(),
-            activeDay: Store.getActiveDay(),
-            activeMonth: Store.getActiveMonth()
+            today: CalendarStore.getToday(),
+            activeDay: CalendarStore.getActiveDay(),
+            activeMonth: CalendarStore.getActiveMonth()
         });
     },
 
     render: function () {
+        var styles = {
+            mainPanel: {
+                 border: '2px solid ' + COLOR.mainPanel.border
+            }
+        };
+
         return (
             <MuiThemeProvider>
-            <GridList cols={10} cellHeight={434} className="mainPanel">
+            <GridList cols={10} cellHeight={432} padding={0} style={styles.mainPanel}>
                 <GridTile cols={4}>
-                    <LunarPanel activeDay={this.state.activeDay} />
+                    <LunarPanel activeDay={this.state.activeDay}/>
                 </GridTile>
                 <GridTile cols={6}>
                     <DatePanel

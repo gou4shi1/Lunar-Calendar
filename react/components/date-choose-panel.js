@@ -2,9 +2,9 @@
  * Created by gou4shi1 on 16-8-17.
  */
 
-var React = require("react");
-var Action = require("../actions/calendar-actions");
-var Assign = require("object-assign");
+var React = require('react');
+var CalendarAction = require('../actions/calendar-actions');
+var COLOR = require('../constants/calendar-color');
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {FlatButton} from 'material-ui'
@@ -15,16 +15,39 @@ var DateChoosePanel = React.createClass({
         var activeDay = this.props.activeDay;
         var activeMonth = this.props.activeMonth;
 
-        var table = [],
-            tableBody = [],
-            tableRow = [];
+        var table = [];
+        var tableBody = [];
+        var tableRow = [];
+
+        var styles = {
+            tableHeader: {
+                background: COLOR.tableHeader.background
+            },
+            tableBody: {
+                background: COLOR.tableBody.background
+            },
+            orangeLabel: {
+                lineHeight: 0,
+                fontSize: 10,
+                color: COLOR.orangeLabel.color
+            },
+            greyLabel: {
+                lineHeight: 0,
+                fontSize: 10,
+                color: COLOR.greyLabel.color
+            },
+            tableButton: {
+                minWidth: 66,
+                height: 50
+            }
+        };
 
         table.push(
-            <TableHeader key="tableHeader"
+            <TableHeader key='tableHeader'
                 adjustForCheckbox={false}
                 displaySelectAll={false}
                 enableSelectAll={false}
-                style={{background: "#a7ffeb"}}
+                style={styles.tableHeader}
             >
                 <TableRow>
                     <TableHeaderColumn>日</TableHeaderColumn>
@@ -38,57 +61,51 @@ var DateChoosePanel = React.createClass({
             </TableHeader>
         );
 
-        var orangeLabelStyle = {
-            lineHeight: 0,
-            fontSize: 10,
-            color: "#ff7043"
-        };
-
-        var greyLabelStyle = {
-            lineHeight: 0,
-            fontSize: 10,
-            color: "#757575"
-        };
-
         for (var i = 0; i < activeMonth.length; i++) {
             var date = activeMonth[i];
 
-            var label = "";
+            var label = '';
             if (date.lunarFestival != undefined)
-                label = <div style={orangeLabelStyle}>{date.lunarFestival}</div>;
+                label = <div style={styles.orangeLabel}>{date.lunarFestival}</div>;
             else if (date.term != undefined)
-                label = <div style={orangeLabelStyle}>{date.term}</div>;
+                label = <div style={styles.orangeLabel}>{date.term}</div>;
+            //爲了美觀，對公歷節日做特殊處理
             else if (date.solarFestival != undefined) {
-                var festivals = date.solarFestival.replace(/國際|世界|\(|\)/g," ").split(" ");
+                var festivals = date.solarFestival.replace(/國際|世界|\(|\)/g,' ').split(' ');
                 label = (festivals[0] || festivals[1]).slice(0,5);
-                label = <div style={greyLabelStyle}>{label}</div>;
+                label = <div style={styles.greyLabel}>{label}</div>;
             }
             else if (date.lunarDay == 1)
-                label = <div style={orangeLabelStyle}>{date.lunarMonthName}</div>;
+                label = <div style={styles.orangeLabel}>{date.lunarMonthName}</div>;
             else
-                label = <div style={greyLabelStyle}>{date.lunarDayName}</div>;
+                label = <div style={styles.greyLabel}>{date.lunarDayName}</div>;
 
-            var rowColumnStyle = {paddingLeft: 0};
+            var styles_tableCell = {
+                background: COLOR.tableCell.background.normal,
+                paddingLeft: 0
+            };
             if (date.day == activeDay.day && date.month == activeDay.month && date.year == activeDay.year)
-                Assign(rowColumnStyle,{background: "#64ffda"});
+                styles_tableCell.background = COLOR.tableCell.background.active;
             else if (date.day == today.day && date.month == today.month && date.year == today.year)
-                Assign(rowColumnStyle,{background: "#84ffff"});
+                styles_tableCell.background = COLOR.tableCell.background.today;
 
-            var numberStyle = {};
+            var styles_numberLabel = {
+                color: COLOR.numberLabel.color.normal
+            };
             if (date.month != activeDay.month)
-                Assign(numberStyle,{color: "#9e9e9e"});
+                styles_numberLabel.color = COLOR.numberLabel.color.overMonth;
             else if (i % 7 == 6 || i % 7 == 0)
-                Assign(numberStyle,{color: "#f44336"});
+                styles_numberLabel.color = COLOR.numberLabel.color.weekend;
 
             tableRow.push(
-                <TableRowColumn style={rowColumnStyle} key={"tableRowColumn" + i}>
+                <TableRowColumn style={styles_tableCell} key={'tableRowColumn' + i}>
                     <FlatButton
                         label={date.day}
-                        labelStyle={numberStyle}
-                        labelPosition={"before"}
-                        rippleColor="#64ffda"
+                        labelStyle={styles_numberLabel}
+                        labelPosition={'before'}
+                        rippleColor={COLOR.numberLabel.color.ripple}
                         onTouchTap={this._onClick.bind(this, date)}
-                        style={{minWidth: 66, height: 50}}
+                        style={styles.tableButton}
                     >
                         {label}
                     </FlatButton>
@@ -97,7 +114,7 @@ var DateChoosePanel = React.createClass({
 
             if ((i+1) % 7  == 0) {
                 tableBody.push(
-                    <TableRow key={"tableRow" + i}>
+                    <TableRow key={'tableRow' + i}>
                         {tableRow}
                     </TableRow>
                 );
@@ -108,8 +125,8 @@ var DateChoosePanel = React.createClass({
         table.push(
             <TableBody
                 displayRowCheckbox={false}
-                style={{background: "#B8F4FF"}}
-                key="tableBody"
+                style={styles.tableBody}
+                key='tableBody'
             >
                 {tableBody}
             </TableBody>
@@ -123,7 +140,7 @@ var DateChoosePanel = React.createClass({
     },
 
     _onClick: function (date) {
-        Action.changeDay(date);
+        CalendarAction.changeDay(date);
     }
 });
 

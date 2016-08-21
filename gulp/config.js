@@ -1,10 +1,9 @@
 var dest = './build',
-  src = './react',
-  mui = './node_modules/material-ui/src';
+  src = './react';
 
 module.exports = {
   electronSync: {
-    src: [dest + '/app.js','./main.css']
+    src: dest + '/app.js'
   },
   browserify: {
     // Enable source maps

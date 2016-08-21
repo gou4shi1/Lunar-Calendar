@@ -2,59 +2,59 @@
  * Created by gou4shi1 on 16-8-16.
  */
 
-var Dispatcher = require("../dispatchers/dispatcher");
-var typeConstant = require("../constants/action-type-constants");
-var ipc =  electronRequire("electron").ipcRenderer;
+var Dispatcher = require('../dispatchers/dispatcher');
+var TYPE = require('../constants/action-type');
+var ipc =  electronRequire('electron').ipcRenderer;
 
-var LC_Action = {
+var CalendarAction = {
     changeDay: function (activeDay) {
         Dispatcher.dispatch({
-            actionType: typeConstant.CHANGE_DAY,
+            actionType: TYPE.CHANGE_DAY,
+            activeDay: activeDay
+        });
+    },
+
+    changeNote: function (activeDay, note) {
+        Dispatcher.dispatch({
+            actionType: TYPE.CHANGE_NOTE,
+            note: note,
             activeDay: activeDay
         });
     },
 
     addMonth: function () {
         Dispatcher.dispatch({
-            actionType: typeConstant.ADD_MONTH
+            actionType: TYPE.ADD_MONTH
         });
     },
 
     minusMonth: function () {
         Dispatcher.dispatch({
-            actionType: typeConstant.MINUS_MONTH
+            actionType: TYPE.MINUS_MONTH
         });
     },
 
     addYear: function () {
         Dispatcher.dispatch({
-            actionType: typeConstant.ADD_YEAR
+            actionType: TYPE.ADD_YEAR
         });
     },
 
     minusYear: function () {
         Dispatcher.dispatch({
-            actionType: typeConstant.MINUS_YEAR
+            actionType: TYPE.MINUS_YEAR
         });
     },
 
     refresh: function () {
         Dispatcher.dispatch({
-            actionType: typeConstant.REFRESH
-        });
-    },
-
-    changeJishi: function (activeDay, jishi) {
-        Dispatcher.dispatch({
-            actionType: typeConstant.CHANGE_JISHI,
-            jishi: jishi,
-            activeDay: activeDay
+            actionType: TYPE.REFRESH
         });
     },
 
     quitApp: function () {
-        ipc.send("app-quit");
+        ipc.send('app-quit');
     }
 };
 
-module.exports = LC_Action;
+module.exports = CalendarAction;

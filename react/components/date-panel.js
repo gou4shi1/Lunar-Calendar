@@ -2,9 +2,9 @@
  * Created by gou4shi1 on 16-8-17.
  */
 
-var React = require("react");
-var DateController = require("./date-controller");
-var DateChoosePanel = require("./date-choose-panel");
+var React = require('react');
+var DateController = require('./date-controller');
+var DateChoosePanel = require('./date-choose-panel');
 
 var DatePanel = React.createClass({
     render: function () {
