@@ -6,7 +6,7 @@ var RANGE = require('../constants/calendar-range');
 var LC = require('lunar-calendar-zh');
 var HL = require('./huangli/huangli');
 var Assign = require('object-assign');
-var _ = require('lodash');
+var _find = require('lodash').find;
 
 var CalendarDatabase = {
     //使用HTML 5自帶的本地儲存，儲存的數據無時間限制
@@ -35,7 +35,7 @@ var CalendarDatabase = {
         if (!this.isInRange(year, month, day))
             return {};
         var monthData = LC.calendar(year, month, false).monthData;
-        var dayData =  _.find(monthData, { 'day': day});
+        var dayData =  _find(monthData, { 'day': day});
         year = year.toString();
         month = (month < 10 ? '0' : '') + month;
         day = (day < 10 ? '0' : '') + day;
@@ -57,6 +57,12 @@ var CalendarDatabase = {
             monthData[index] = this.getLunarByDay(dayData.year, dayData.month, dayData.day);
         }.bind(this));
         return monthData;
+    },
+
+    getMonthDays: function (year, month) {
+        if (!this.isInRange(year, month, 1))
+            return {};
+        return LC.calendar(year, month, false).monthDays;
     }
 };
 

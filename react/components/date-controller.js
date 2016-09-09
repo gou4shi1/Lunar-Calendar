@@ -247,8 +247,9 @@ var DateController = React.createClass({
                         actions={aboutDialogActions}
                         title='關於這個日歷'
                     >
-                        <p>開發者：華師某單身狗</p>
+                        <p>開發者：華師某程序猿</p>
                         <p>開發目的：2016年大一暑假作業</p>
+                        <p>缺陷：暫時只收錄了2008-2020年的農歷數據</p>
                         <p>了解更多，請訪問我這個破站：goushi.me</p>
                     </Dialog>
                     <Dialog

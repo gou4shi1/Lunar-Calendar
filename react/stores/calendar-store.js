@@ -39,6 +39,8 @@ var CalendarStore = Assign({}, EventEmitter.prototype, {
         }
         if (year > RANGE.MAX_YEAR || year < RANGE.MIN_YEAR)
             return false;
+        if (day > CalendarDatabase.getMonthDays(year, month))
+            day = 1;
         this.activeDay = CalendarDatabase.getLunarByDay(year, month, day);
         this.emit(TYPE.CHANGE_DAY);
         return true;
